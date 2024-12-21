@@ -1,0 +1,3 @@
+node_modules
+/backend-nest-js/database
+/backend-nest-js/dist
