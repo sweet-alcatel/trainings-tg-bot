@@ -126,9 +126,27 @@ importers:
         specifier: '2'
         version: 2.7.0(encoding@0.1.13)
     devDependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.0.0
+        version: 8.18.1(@typescript-eslint/parser@8.18.1(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
+      '@typescript-eslint/parser':
+        specifier: ^8.0.0
+        version: 8.18.1(eslint@8.57.1)(typescript@5.7.2)
+      eslint:
+        specifier: ^8.0.0
+        version: 8.57.1
+      eslint-config-prettier:
+        specifier: ^9.0.0
+        version: 9.1.0(eslint@8.57.1)
+      eslint-plugin-prettier:
+        specifier: ^5.0.0
+        version: 5.2.1(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.4.2)
       nodemon:
         specifier: ^3.1.9
         version: 3.1.9
+      prettier:
+        specifier: ^3.0.0
+        version: 3.4.2
       ts-node:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@20.17.10)(typescript@5.7.2)
