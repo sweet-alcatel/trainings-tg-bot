@@ -1,5 +1,5 @@
 export class CreateUserDto {
-  telegramID: number;
+  telegramID: string;
   name: string;
   username: string;
   height: string;
@@ -7,16 +7,14 @@ export class CreateUserDto {
   goals: string;
   injuries: string;
   comment: string;
-  role: 'ADMIN' | 'USER';
 }
 
 export class UpdateUserDto {
-  telegramID: number;
+  telegramID: string;
   name: string;
   height: string;
   weight: string;
   goals: string;
   injuries: string;
   comment: string;
-  role: 'ADMIN' | 'USER';
 }

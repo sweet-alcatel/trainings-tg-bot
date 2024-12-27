@@ -20,7 +20,7 @@ export class UserService {
     return user;
   }
 
-  async getUserByTelegramId(id: number) {
+  async getUserByTelegramId(id: string) {
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {
@@ -44,7 +44,7 @@ export class UserService {
     return updatedUser;
   }
 
-  async deleteUserByTelegramId(id: number) {
+  async deleteUserByTelegramId(id: string) {
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {

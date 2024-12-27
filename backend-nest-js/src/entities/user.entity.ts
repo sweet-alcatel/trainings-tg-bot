@@ -18,7 +18,7 @@ export class User extends Model<User> {
   @PrimaryKey
   @Unique
   @Column
-  telegramID: number;
+  telegramID: string;
 
   @Column
   name: string;

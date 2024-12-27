@@ -20,7 +20,7 @@ export class Training extends Model<Training> {
 
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userId: string;
 
   @Column
   date: string;

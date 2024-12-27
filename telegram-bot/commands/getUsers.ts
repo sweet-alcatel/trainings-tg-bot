@@ -3,13 +3,14 @@ import { CommandContext, Context } from 'grammy';
 
 const fetch = require('node-fetch');
 
-export const getPersons = async (ctx: CommandContext<Context>) => {
+export const getUsers = async (ctx: CommandContext<Context>) => {
   const response = await fetch(`${process.env.domain}/api/v1/user/`);
 
   const data = await response.json();
 
   for await (const person of data) {
     ctx.reply(`
+        telegram ID: ${person.telegramID}
         Имя: ${person.name} 
         Рост: ${person.height}
         Вес: ${person.weight}
