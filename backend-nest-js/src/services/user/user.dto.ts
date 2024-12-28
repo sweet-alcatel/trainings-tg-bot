@@ -12,6 +12,7 @@ export class CreateUserDto {
 export class UpdateUserDto {
   telegramID: string;
   name: string;
+  username: string;
   height: string;
   weight: string;
   goals: string;

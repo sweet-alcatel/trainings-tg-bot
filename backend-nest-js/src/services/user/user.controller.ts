@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UpdateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 
 @Controller('/api/v1/user/')
 export class UserController {
@@ -25,13 +25,13 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() params: UpdateUserDto) {
+  async createUser(@Body() params: CreateUserDto) {
     return await this.userService.createUserByTelegramId(params);
   }
 
-  @Patch()
-  async updateUser(@Body() params: UpdateUserDto) {
-    return await this.userService.updateUserByTelegramId(params);
+  @Patch(':id')
+  async updateUser(@Param('id') id: string, @Body() params: UpdateUserDto) {
+    return await this.userService.updateUserByTelegramId(id, params);
   }
 
   @Delete(':id')
