@@ -22,7 +22,10 @@ type Body = {
   comment: string;
 };
 
-export async function createUser(conversation: MyConversation, ctx: MyContext) {
+export const createUser = async (
+  conversation: MyConversation,
+  ctx: MyContext,
+) => {
   await ctx.reply(
     'Вы вошли в диалог создания пользователя. Не пропускайте поля',
   );
@@ -91,6 +94,8 @@ export async function createUser(conversation: MyConversation, ctx: MyContext) {
 
     await ctx.reply('Данные успешно загружены в базу, спасибо!');
   } catch {
-    await ctx.reply('Произошла ошибка, повторите операцию');
+    await ctx.reply(
+      'Произошла ошибка создания пользователя, повторите операцию',
+    );
   }
-}
+};
