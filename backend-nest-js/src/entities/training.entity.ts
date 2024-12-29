@@ -5,6 +5,7 @@ import {
   Model,
   PrimaryKey,
   Table,
+  AutoIncrement,
 } from 'sequelize-typescript';
 import { User } from './user.entity';
 
@@ -14,6 +15,7 @@ import { User } from './user.entity';
   updatedAt: false,
 })
 export class Training extends Model<Training> {
+  @AutoIncrement
   @PrimaryKey
   @Column
   id: number;
@@ -24,6 +26,9 @@ export class Training extends Model<Training> {
 
   @Column
   date: string;
+
+  @Column
+  comment: string;
 
   @BelongsTo(() => User)
   user: User;

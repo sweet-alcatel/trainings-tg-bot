@@ -1,4 +1,5 @@
 export class CreateTrainingDto {
-  date: string;
   userId: string;
+  date: string;
+  comment: string;
 }

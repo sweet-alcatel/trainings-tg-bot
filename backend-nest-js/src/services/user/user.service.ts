@@ -14,7 +14,7 @@ export class UserService {
     return users;
   }
 
-  async createUserByTelegramId(params: CreateUserDto) {
+  async createUser(params: CreateUserDto) {
     const user = await this.userRepository.create(params);
 
     return user;

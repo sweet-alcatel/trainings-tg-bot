@@ -26,7 +26,7 @@ export class UserController {
 
   @Post()
   async createUser(@Body() params: CreateUserDto) {
-    return await this.userService.createUserByTelegramId(params);
+    return await this.userService.createUser(params);
   }
 
   @Patch(':id')
