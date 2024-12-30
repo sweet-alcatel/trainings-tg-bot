@@ -5,6 +5,8 @@ import {
   type Conversation,
   type ConversationFlavor,
 } from '@grammyjs/conversations';
+import { checkRole } from '../helpers/checkRole';
+import { Role } from '../data/role';
 
 const fetch = require('node-fetch');
 
@@ -26,6 +28,13 @@ export const createUser = async (
   conversation: MyConversation,
   ctx: MyContext,
 ) => {
+  const role = await checkRole(ctx.chat?.id as number);
+
+  if (!role || role === Role.USER) {
+    await ctx.reply('Недопустимая команда для вас, диалог завершается');
+    return;
+  }
+
   await ctx.reply(
     'Вы вошли в диалог создания пользователя. Не пропускайте поля',
   );
@@ -84,18 +93,21 @@ export const createUser = async (
   body.injuries = injuriesMessage.message?.text;
 
   try {
-    await fetch(`${process.env.domain}/api/v1/user/`, {
+    const response = await fetch(`${process.env.domain}/api/v1/user/`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
+        Role: Role.ADMIN,
       },
     });
 
+    if (!response.ok) {
+      throw new Error('Ошибка выполнения запроса');
+    }
+
     await ctx.reply('Данные успешно загружены в базу, спасибо!');
   } catch {
-    await ctx.reply(
-      'Произошла ошибка создания пользователя, повторите операцию',
-    );
+    await ctx.reply('Произошла ошибка создания пользователя');
   }
 };

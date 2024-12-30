@@ -5,6 +5,7 @@ import {
   conversations,
   createConversation,
 } from '@grammyjs/conversations';
+import { getMyself } from './commands/getMyself';
 import { getUsers } from './commands/getUsers';
 import { createUser } from './commands/createUser';
 import { deleteUser } from './commands/deleteUser';
@@ -33,15 +34,16 @@ bot.command('start', async (ctx) => await ctx.reply('Привет!'));
 
 bot.command('help', async (ctx) => {
   await ctx.reply(`
-    На данный момент бот умеет выполнять команды /getUsers, /createUser, /updateUser, /deleteUser
+    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser,
+    Команды для пользователя: /getMyself
     Если вы застряли во время диалога, прожмите команду "/cancel" для отмены`);
 });
 
-bot.command('getUsers', getUsers);
-
-bot.command('greeting', async (ctx) => {
-  await ctx.conversation.enter('greeting');
+bot.command('getMyself', async (ctx) => {
+  await getMyself(ctx);
 });
+
+bot.command('getUsers', getUsers);
 
 bot.command('createUser', async (ctx) => {
   await ctx.conversation.enter('createUser');
