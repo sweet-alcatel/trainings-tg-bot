@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { TrainingService } from './training.service';
 import { CreateTrainingDto } from './training.dto';
+import { Role, Roles } from 'src/lib/roles';
+import { RolesGuard } from 'src/guards/role';
 
 @Controller('/api/v1/training/')
 export class TrainingController {
@@ -12,6 +14,8 @@ export class TrainingController {
   }
 
   @Post()
+  @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
   async addTrain(@Body() params: CreateTrainingDto) {
     return await this.trainingService.addTrainingToUser(params);
   }
