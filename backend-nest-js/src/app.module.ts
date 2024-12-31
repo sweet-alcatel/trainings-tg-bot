@@ -4,6 +4,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './services/user/user.module';
 import { TrainingModule } from './services/training/training.module';
 import { ConfigModule } from '@nestjs/config';
+import { ReportModule } from './services/report/report.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     UserModule,
     TrainingModule,
+    ReportModule,
   ],
 })
 export class AppModule {}
