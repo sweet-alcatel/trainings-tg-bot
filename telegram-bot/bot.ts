@@ -1,19 +1,14 @@
-import { Bot, type Context, session } from 'grammy';
+import { Bot, session } from 'grammy';
 import dotenv from 'dotenv';
-import {
-  type ConversationFlavor,
-  conversations,
-  createConversation,
-} from '@grammyjs/conversations';
+import { conversations, createConversation } from '@grammyjs/conversations';
 import { getMyself } from './commands/getMyself';
 import { getUsers } from './commands/getUsers';
 import { createUser } from './commands/createUser';
 import { deleteUser } from './commands/deleteUser';
 import { updateUser } from './commands/updateUser';
+import { MyContext } from './types/conversation';
 
 dotenv.config();
-
-type MyContext = Context & ConversationFlavor;
 
 export const bot = new Bot<MyContext>(`${process.env.bot_token}`);
 
@@ -30,13 +25,16 @@ bot.use(createConversation(createUser));
 bot.use(createConversation(updateUser));
 bot.use(createConversation(deleteUser));
 
-bot.command('start', async (ctx) => await ctx.reply('Привет!'));
+bot.command(
+  'start',
+  async (ctx) => await ctx.reply('Привет! Введите /help для просмотра команд'),
+);
 
 bot.command('help', async (ctx) => {
   await ctx.reply(`
     Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser,
-    Команды для пользователя: /getMyself
-    Если вы застряли во время диалога, прожмите команду "/cancel" для отмены`);
+    Команда для пользователя: /getMyself
+    Если вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
 
 bot.command('getMyself', async (ctx) => {

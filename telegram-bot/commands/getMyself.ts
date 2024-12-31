@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { CommandContext, Context } from 'grammy';
+import { MyCommandContext } from '../types/conversation';
 
 const fetch = require('node-fetch');
 
-export const getMyself = async (ctx: CommandContext<Context>) => {
+export const getMyself = async (ctx: MyCommandContext) => {
   try {
     const response = await fetch(
       `${process.env.domain}/api/v1/user/${ctx.chat.id}`,

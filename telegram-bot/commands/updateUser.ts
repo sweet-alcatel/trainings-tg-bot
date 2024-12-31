@@ -1,28 +1,13 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { type Context } from 'grammy';
-
-import {
-  type Conversation,
-  type ConversationFlavor,
-} from '@grammyjs/conversations';
-import { checkRole } from '../helpers/checkRole';
 import { Role } from '../data/role';
+import { MyContext, MyConversation } from '../types/conversation';
+import { conversationByRole } from '../helpers/conversationByRole';
 const fetch = require('node-fetch');
 
-type MyContext = Context & ConversationFlavor;
-type MyConversation = Conversation<MyContext>;
-
-export const updateUser = async (
+const updateUserCommand = async (
   conversation: MyConversation,
   ctx: MyContext,
 ) => {
-  const role = await checkRole(ctx.chat?.id as number);
-
-  if (!role || role === Role.USER) {
-    await ctx.reply('Недопустимая команда для вас, диалог завершается');
-    return;
-  }
-
   const body: Partial<Record<string, string>> = {};
 
   await ctx.reply(
@@ -99,4 +84,13 @@ export const updateUser = async (
   } catch {
     await ctx.reply('При обновлении пользователя произошла ошибка');
   }
+};
+
+export const updateUser = async (
+  conversation: MyConversation,
+  ctx: MyContext,
+) => {
+  await conversationByRole(ctx, async () => {
+    await updateUserCommand(conversation, ctx);
+  });
 };

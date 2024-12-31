@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { CommandContext, Context } from 'grammy';
-import { checkRole } from '../helpers/checkRole';
 import { Role } from '../data/role';
+import { commandByRole } from '../helpers/commandByRole';
+import { MyCommandContext } from '../types/conversation';
 
 const fetch = require('node-fetch');
 
-export const getUsers = async (ctx: CommandContext<Context>) => {
+const getUsersCommand = async (ctx: MyCommandContext) => {
   try {
-    const role = await checkRole(ctx.chat?.id as number);
-
-    if (!role || role === Role.USER) {
-      await ctx.reply('Недопустимая команда для вас, диалог завершается');
-      return;
-    }
-
     const response = await fetch(`${process.env.domain}/api/v1/user/`, {
       headers: {
         Role: Role.ADMIN,
@@ -39,4 +32,10 @@ export const getUsers = async (ctx: CommandContext<Context>) => {
   } catch {
     await ctx.reply('При получении пользователей произошла ошибка');
   }
+};
+
+export const getUsers = async (ctx: MyCommandContext) => {
+  await commandByRole(ctx, async () => {
+    await getUsersCommand(ctx);
+  });
 };
