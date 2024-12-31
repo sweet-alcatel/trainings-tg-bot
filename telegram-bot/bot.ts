@@ -7,6 +7,7 @@ import { createUser } from './commands/createUser';
 import { deleteUser } from './commands/deleteUser';
 import { updateUser } from './commands/updateUser';
 import { MyContext } from './types/conversation';
+import { createTraining } from './commands/createTraining';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ bot.command('cancel', async (ctx) => {
 bot.use(createConversation(createUser));
 bot.use(createConversation(updateUser));
 bot.use(createConversation(deleteUser));
+bot.use(createConversation(createTraining));
 
 bot.command(
   'start',
@@ -32,7 +34,7 @@ bot.command(
 
 bot.command('help', async (ctx) => {
   await ctx.reply(`
-    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser,
+    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser, /createTraining
     Команда для пользователя: /getMyself
     Если вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
@@ -53,6 +55,10 @@ bot.command('updateUser', async (ctx) => {
 
 bot.command('deleteUser', async (ctx) => {
   await ctx.conversation.enter('deleteUser');
+});
+
+bot.command('createTraining', async (ctx) => {
+  await ctx.conversation.enter('createTraining');
 });
 
 bot.start();
