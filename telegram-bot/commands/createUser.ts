@@ -1,17 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { type Context } from 'grammy';
-
-import {
-  type Conversation,
-  type ConversationFlavor,
-} from '@grammyjs/conversations';
-import { checkRole } from '../helpers/checkRole';
 import { Role } from '../data/role';
+import { MyContext, MyConversation } from '../types/conversation';
+import { conversationByRole } from '../helpers/conversationByRole';
 
 const fetch = require('node-fetch');
-
-type MyContext = Context & ConversationFlavor;
-type MyConversation = Conversation<MyContext>;
 
 type Body = {
   telegramID: string;
@@ -24,17 +16,10 @@ type Body = {
   comment: string;
 };
 
-export const createUser = async (
+const createUserCommand = async (
   conversation: MyConversation,
   ctx: MyContext,
 ) => {
-  const role = await checkRole(ctx.chat?.id as number);
-
-  if (!role || role === Role.USER) {
-    await ctx.reply('Недопустимая команда для вас, диалог завершается');
-    return;
-  }
-
   await ctx.reply(
     'Вы вошли в диалог создания пользователя. Не пропускайте поля',
   );
@@ -110,4 +95,13 @@ export const createUser = async (
   } catch {
     await ctx.reply('Произошла ошибка создания пользователя');
   }
+};
+
+export const createUser = async (
+  conversation: MyConversation,
+  ctx: MyContext,
+) => {
+  await conversationByRole(ctx, async () => {
+    await createUserCommand(conversation, ctx);
+  });
 };

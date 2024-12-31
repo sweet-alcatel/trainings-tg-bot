@@ -1,28 +1,13 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { type Context } from 'grammy';
-
-import {
-  type Conversation,
-  type ConversationFlavor,
-} from '@grammyjs/conversations';
-import { checkRole } from '../helpers/checkRole';
 import { Role } from '../data/role';
+import { MyContext, MyConversation } from '../types/conversation';
+import { conversationByRole } from '../helpers/conversationByRole';
 const fetch = require('node-fetch');
 
-type MyContext = Context & ConversationFlavor;
-type MyConversation = Conversation<MyContext>;
-
-export const deleteUser = async (
+const deleteUserCommand = async (
   conversation: MyConversation,
   ctx: MyContext,
 ) => {
-  const role = await checkRole(ctx.chat?.id as number);
-
-  if (!role || role === Role.USER) {
-    await ctx.reply('Недопустимая команда для вас, диалог завершается');
-    return;
-  }
-
   await ctx.reply(
     'Вы попали в диалог удаления пользователя. Введите его telegram ID',
   );
@@ -48,4 +33,13 @@ export const deleteUser = async (
   } catch {
     await ctx.reply('При удалении пользователя произошла ошибка');
   }
+};
+
+export const deleteUser = async (
+  conversation: MyConversation,
+  ctx: MyContext,
+) => {
+  await conversationByRole(ctx, async () => {
+    await deleteUserCommand(conversation, ctx);
+  });
 };
