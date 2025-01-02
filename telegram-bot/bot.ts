@@ -1,4 +1,4 @@
-import { Bot, session } from 'grammy';
+import { Bot, InputFile, session } from 'grammy';
 import dotenv from 'dotenv';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { getMyself } from './commands/getMyself';
@@ -8,6 +8,7 @@ import { deleteUser } from './commands/deleteUser';
 import { updateUser } from './commands/updateUser';
 import { MyContext } from './types/conversation';
 import { createTraining } from './commands/createTraining';
+import { getReport } from './commands/getReport';
 
 dotenv.config();
 
@@ -34,7 +35,7 @@ bot.command(
 
 bot.command('help', async (ctx) => {
   await ctx.reply(`
-    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser, /createTraining
+    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser, /createTraining, /getReport
     Команда для пользователя: /getMyself
     Если вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
@@ -59,6 +60,14 @@ bot.command('deleteUser', async (ctx) => {
 
 bot.command('createTraining', async (ctx) => {
   await ctx.conversation.enter('createTraining');
+});
+
+bot.command('getReport', async (ctx) => {
+  const data = await getReport(ctx);
+
+  await ctx.replyWithDocument(
+    new InputFile(data?.arr as Uint8Array<ArrayBufferLike>, data?.fileName),
+  );
 });
 
 bot.start();

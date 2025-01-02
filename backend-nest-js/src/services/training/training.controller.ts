@@ -8,8 +8,13 @@ import { RolesGuard } from 'src/guards/role';
 export class TrainingController {
   constructor(private trainingService: TrainingService) {}
 
+  @Get()
+  async getTrainings() {
+    return await this.trainingService.getTrainings();
+  }
+
   @Get(':id')
-  async getTrainings(@Param('id') id: string) {
+  async getTrainingsByID(@Param('id') id: string) {
     return await this.trainingService.getTrainingsByTelegramID(id);
   }
 

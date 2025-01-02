@@ -2,14 +2,17 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/entities/user.entity';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
-import { Training } from 'src/entities/training.entity';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User) private userRepository: typeof User) {}
 
   async getUsers() {
-    const users = await this.userRepository.findAll({ include: [Training] });
+    const users = await this.userRepository.findAll();
+
+    if (!users) {
+      throw new HttpException('Пользователей не найдено', HttpStatus.NOT_FOUND);
+    }
 
     return users;
   }
@@ -30,7 +33,7 @@ export class UserService {
     return user;
   }
 
-  async updateUserByTelegramId(id, params: UpdateUserDto) {
+  async updateUserByTelegramId(id: string, params: UpdateUserDto) {
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {

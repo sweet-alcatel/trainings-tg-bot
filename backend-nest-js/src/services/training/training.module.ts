@@ -6,6 +6,7 @@ import { Training } from 'src/entities/training.entity';
 
 @Module({
   imports: [SequelizeModule.forFeature([Training])],
+  exports: [TrainingService],
   controllers: [TrainingController],
   providers: [TrainingService],
 })
