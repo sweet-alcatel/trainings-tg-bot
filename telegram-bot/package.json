@@ -2,17 +2,14 @@
   "name": "telegram-bot",
   "version": "1.0.0",
   "description": "telegram-bot for training process",
+  "private": true,
   "scripts": {
     "start:dev": "nodemon ./bot.ts",
     "build": "tsc",
-    "start:prod": "node dist/bot.js",
-    "dev:app": "pnpm -r start:dev",
+    "start:prod": "pnpm build && node dist/bot.js",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint \"**/*.ts\" --fix"
   },
-  "keywords": [],
-  "author": "Dmitriy Sharapov",
-  "license": "ISC",
   "dependencies": {
     "@grammyjs/commands": "^1.0.3",
     "@grammyjs/conversations": "^1.2.0",

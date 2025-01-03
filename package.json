@@ -1,12 +1,11 @@
 {
   "name": "bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "workspace for the telegram-bot and its backend",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:app": "pnpm -r start:dev",
+    "prod:app": "pnpm -r start:prod"
   },
-  "keywords": [],
-  "author": "Dmitriy Sharapov",
-  "license": "ISC"
+  "author": "Dmitriy Sharapov"
 }
