@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon ./bot.ts",
     "build": "tsc",
-    "start:prod": "pnpm build && node dist/bot.js",
+    "start:prod": "node dist/bot.js",
     "format": "prettier --write \"**/*.ts\"",
     "lint": "eslint \"**/*.ts\" --fix"
   },
