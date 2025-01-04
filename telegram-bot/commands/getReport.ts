@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { MyCommandContext } from '../types/conversation';
 
 const fetch = require('node-fetch');

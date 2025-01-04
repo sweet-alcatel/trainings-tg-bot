@@ -4,7 +4,7 @@ import { MyCommandContext } from '../types/conversation';
 
 const commandByRole = async (
   ctx: MyCommandContext,
-  func: () => Promise<void>,
+  func: () => Promise<any>,
 ) => {
   const role = await checkRole(ctx.chat?.id as number);
 
@@ -13,7 +13,7 @@ const commandByRole = async (
     return;
   }
 
-  await func();
+  return await func();
 };
 
 export { commandByRole };

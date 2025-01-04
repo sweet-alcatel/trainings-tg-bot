@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { Role } from '../data/role';
 import { MyContext, MyConversation } from '../types/conversation';
 import { conversationByRole } from '../helpers/conversationByRole';

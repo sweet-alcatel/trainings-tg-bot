@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
 const fetch = require('node-fetch');
 
 export const checkRole = async (telegramID: number) => {

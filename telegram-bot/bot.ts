@@ -9,10 +9,15 @@ import { updateUser } from './commands/updateUser';
 import { MyContext } from './types/conversation';
 import { createTraining } from './commands/createTraining';
 import { getReport } from './commands/getReport';
+import { commandByRole } from './helpers/commandByRole';
 
 dotenv.config();
 
-export const bot = new Bot<MyContext>(`${process.env.bot_token}`);
+const isDev = process.env.NODE_ENV === 'development';
+
+const token = isDev ? process.env.dev_bot_token : process.env.bot_token;
+
+export const bot = new Bot<MyContext>(token!);
 
 bot.use(session({ initial: () => ({}) }));
 
@@ -63,7 +68,9 @@ bot.command('createTraining', async (ctx) => {
 });
 
 bot.command('getReport', async (ctx) => {
-  const data = await getReport(ctx);
+  const data = await commandByRole(ctx, async () => {
+    return await getReport(ctx);
+  });
 
   await ctx.replyWithDocument(
     new InputFile(data?.arr as Uint8Array<ArrayBufferLike>, data?.fileName),
