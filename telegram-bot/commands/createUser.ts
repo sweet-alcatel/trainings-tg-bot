@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { Role } from '../data/role';
 import { MyContext, MyConversation } from '../types/conversation';
 import { conversationByRole } from '../helpers/conversationByRole';
@@ -76,6 +75,12 @@ const createUserCommand = async (
   const injuriesMessage = await conversation.wait();
 
   body.injuries = injuriesMessage.message?.text;
+
+  await ctx.reply('Укажите дополнительный комментарий');
+
+  const commentMessage = await conversation.wait();
+
+  body.comment = commentMessage.message?.text;
 
   try {
     const response = await fetch(`${process.env.domain}/api/v1/user/`, {

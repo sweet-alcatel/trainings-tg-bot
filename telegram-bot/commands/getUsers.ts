@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { Role } from '../data/role';
 import { commandByRole } from '../helpers/commandByRole';
 import { MyCommandContext } from '../types/conversation';
