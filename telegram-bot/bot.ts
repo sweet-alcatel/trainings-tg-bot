@@ -3,11 +3,11 @@ import dotenv from 'dotenv';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { getMyself } from './commands/getMyself';
 import { getUsers } from './commands/getUsers';
-import { createUser } from './commands/createUser';
-import { deleteUser } from './commands/deleteUser';
-import { updateUser } from './commands/updateUser';
+import { createUser } from './conversations/createUser';
+import { deleteUser } from './conversations/deleteUser';
+import { updateUser } from './conversations/updateUser';
 import { MyContext } from './types/conversation';
-import { createTraining } from './commands/createTraining';
+import { createTraining } from './conversations/createTraining';
 import { getReport } from './commands/getReport';
 import { commandByRole } from './helpers/commandByRole';
 
