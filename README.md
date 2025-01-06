@@ -10,5 +10,5 @@
 Docker не используется на проекте
 
 Бот имеет два контура: dev- и prod-контур
-Адрес prod-контура: @fit_way_bot
-Адрес dev-контура: @fit_way_dev_bot
+- Адрес prod-контура: @fit_way_bot
+- Адрес dev-контура: @fit_way_dev_bot
