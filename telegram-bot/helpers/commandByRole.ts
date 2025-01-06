@@ -6,7 +6,7 @@ const commandByRole = async (
   ctx: MyCommandContext,
   func: () => Promise<any>,
 ) => {
-  const role = await checkRole(ctx.chat?.id as number);
+  const role = await checkRole(ctx);
 
   if (!role || role === Role.USER) {
     await ctx.reply('Недопустимая команда для вас, диалог завершается');

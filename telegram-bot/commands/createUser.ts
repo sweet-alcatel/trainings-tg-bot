@@ -76,7 +76,7 @@ const createUserCommand = async (
 
   body.injuries = injuriesMessage.message?.text;
 
-  await ctx.reply('Укажите прочий комменатрий');
+  await ctx.reply('Укажите дополнительный комментарий');
 
   const commentMessage = await conversation.wait();
 

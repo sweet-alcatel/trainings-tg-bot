@@ -1,9 +1,10 @@
+import { MyCommandContext, MyContext } from '../types/conversation';
 const fetch = require('node-fetch');
 
-export const checkRole = async (telegramID: number) => {
+export const checkRole = async (ctx: MyContext | MyCommandContext) => {
   try {
     const response = await fetch(
-      `${process.env.domain}/api/v1/user/${telegramID}`,
+      `${process.env.domain}/api/v1/user/${ctx.chat?.id}`,
     );
 
     if (!response.ok) {
@@ -13,7 +14,7 @@ export const checkRole = async (telegramID: number) => {
     const person = await response.json();
 
     return person.role;
-  } catch (err) {
-    console.log(err);
+  } catch {
+    console.error('Ошибка определения роли');
   }
 };

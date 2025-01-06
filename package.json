@@ -3,9 +3,5 @@
   "version": "1.0.0",
   "description": "workspace for the telegram-bot and its backend",
   "private": true,
-  "scripts": {
-    "dev:app": "pnpm -r start:dev",
-    "prod:app": "pnpm -r start:prod"
-  },
   "author": "Dmitriy Sharapov"
 }
