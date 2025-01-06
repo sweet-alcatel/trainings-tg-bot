@@ -41,8 +41,8 @@ bot.command(
 bot.command('help', async (ctx) => {
   await ctx.reply(`
     Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser, /createTraining, /getReport
-    Команда для пользователя: /getMyself
-    Если вы застряли во время диалога, прожмите команду /cancel для отмены`);
+    \nКоманда для пользователя: /getMyself
+    \nЕсли вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
 
 bot.command('getMyself', async (ctx) => {
@@ -87,11 +87,11 @@ bot.catch((err) => {
   const e = err.error;
 
   if (e instanceof GrammyError) {
-    console.error('Error in request:', e.description);
+    console.error('Ошибка в запросе:', e.description);
   } else if (e instanceof HttpError) {
-    console.error('Could not contact Telegram:', e);
+    console.error('Не удалось связаться с Telegram:', e);
   } else {
-    console.error('Unknown error:', e);
+    console.error('Неизвестная ошибка:', e);
   }
 });
 

@@ -28,30 +28,30 @@ const updateUserCommand = async (
 
     await ctx.reply(`
         Пользователь был найден. Вот его данные
-        telegram ID: ${user.telegramID}
-        Имя: ${user.name} 
-        Рост: ${user.height}
-        Вес: ${user.weight}
-        Цели: ${user.goals}
-        Травмы: ${user.injuries}
-        Комментарий: ${user.comment}`);
+        \ntelegram ID: ${user.telegramID}
+        \nИмя: ${user.name} 
+        \nРост: ${user.height}
+        \nВес: ${user.weight}
+        \nЦели: ${user.goals}
+        \nТравмы: ${user.injuries}
+        \nКомментарий: ${user.comment}`);
 
     await ctx.reply(
-      `Выберите поле, которое хотите отредактировать. Вам нужно выбрать соответствующее поле на английском языке и написать его. 
-      Например, вы хотите отредактировать вес. По таблице ниже оно называется weight, значит его вы должны написать следующим сообщением.
-      Точность и корректность важны. Например, Weight не пройдет валидацию`,
+      `Выберите поле, которое хотите отредактировать. Вам нужно выбрать соответствующее поле на английском языке и написать его.
+      \nНапример, вы хотите отредактировать вес. По таблице ниже оно называется weight, значит его вы должны написать следующим сообщением.
+      \nТочность и корректность важны. Например, Weight не пройдет валидацию`,
     );
 
     await ctx.reply(`
         Соответствие смотрите по данной таблице
-        telegramID: telegram ID,
-        name: Имя,
-        username: никнейм (например, OwlNearYou),
-        height: Рост,
-        weight: Вес,
-        goals: Цели,
-        injuries: Травмы,
-        comment: Комментарий
+        \ntelegramID: telegram ID,
+        \nname: Имя,
+        \nusername: никнейм (например, OwlNearYou),
+        \nheight: Рост,
+        \nweight: Вес,
+        \ngoals: Цели,
+        \ninjuries: Травмы,
+        \ncomment: Комментарий
         `);
 
     const editableFieldMessage = await conversation.wait();

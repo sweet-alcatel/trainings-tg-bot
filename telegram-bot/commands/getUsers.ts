@@ -21,12 +21,12 @@ const getUsersCommand = async (ctx: MyCommandContext) => {
     for (const person of data) {
       await ctx.reply(`
       telegram ID: ${person.telegramID}
-      Имя: ${person.name} 
-      Рост: ${person.height}
-      Вес: ${person.weight}
-      Цели: ${person.goals}
-      Травмы: ${person.injuries}
-      Комментарий: ${person.comment}`);
+      \nИмя: ${person.name} 
+      \nРост: ${person.height}
+      \nВес: ${person.weight}
+      \nЦели: ${person.goals}
+      \nТравмы: ${person.injuries}
+      \nКомментарий: ${person.comment}`);
     }
   } catch {
     await ctx.reply('При получении пользователей произошла ошибка');
