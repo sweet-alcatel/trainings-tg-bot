@@ -72,9 +72,11 @@ bot.command('getReport', async (ctx) => {
     return await getReport(ctx);
   });
 
-  await ctx.replyWithDocument(
-    new InputFile(data.arr as Uint8Array<ArrayBufferLike>, data.fileName),
-  );
+  if (data) {
+    await ctx.replyWithDocument(
+      new InputFile(data.arr as Uint8Array<ArrayBufferLike>, data.fileName),
+    );
+  }
 });
 
 bot.catch((err) => {
