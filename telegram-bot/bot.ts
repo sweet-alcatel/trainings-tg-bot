@@ -10,6 +10,7 @@ import { MyContext } from './types/conversation';
 import { createTraining } from './conversations/createTraining';
 import { getReport } from './commands/getReport';
 import { commandByRole } from './helpers/commandByRole';
+import { CommandGroup } from '@grammyjs/commands';
 
 dotenv.config();
 
@@ -28,46 +29,56 @@ bot.command('cancel', async (ctx) => {
   await ctx.reply('Выход...');
 });
 
-bot.use(createConversation(createUser));
-bot.use(createConversation(updateUser));
-bot.use(createConversation(deleteUser));
-bot.use(createConversation(createTraining));
+bot.use(createConversation(createUser, 'createuser'));
+bot.use(createConversation(updateUser, 'updateuser'));
+bot.use(createConversation(deleteUser, 'deleteuser'));
+bot.use(createConversation(createTraining, 'createtraining'));
 
-bot.command(
+const myCommands = new CommandGroup();
+
+myCommands.command(
   'start',
+  'Запуск бота',
   async (ctx) => await ctx.reply('Привет! Введите /help для просмотра команд'),
 );
 
-bot.command('help', async (ctx) => {
+myCommands.command('help', 'Помощь по командам', async (ctx) => {
   await ctx.reply(`
-    Команды для администратора: команды /getUsers, /createUser, /updateUser, /deleteUser, /createTraining, /getReport
-    \nКоманда для пользователя: /getMyself
+    Команды для администратора: 
+    \nПолучение пользователей - /getusers, 
+    \nСоздание пользователя - /createuser
+    \nРедактирование пользователя - /updateuser 
+    \nУдаление пользователя - /deleteuser 
+    \nСоздание записи о тренировке - /createtraining
+    \nПолучение отчета - /getreport
+    \nКоманда для пользователя: 
+    \nПолучение информации о себе - /getmyself
     \nЕсли вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
 
-bot.command('getMyself', async (ctx) => {
+myCommands.command('getmyself', 'Получить информацию о себе', async (ctx) => {
   await getMyself(ctx);
 });
 
-bot.command('getUsers', getUsers);
+myCommands.command('getusers', 'Получить пользователей', getUsers);
 
-bot.command('createUser', async (ctx) => {
-  await ctx.conversation.enter('createUser');
+bot.command('createuser', async (ctx) => {
+  await ctx.conversation.enter('createuser');
 });
 
-bot.command('updateUser', async (ctx) => {
-  await ctx.conversation.enter('updateUser');
+bot.command('updateuser', async (ctx) => {
+  await ctx.conversation.enter('updateuser');
 });
 
-bot.command('deleteUser', async (ctx) => {
-  await ctx.conversation.enter('deleteUser');
+bot.command('deleteuser', async (ctx) => {
+  await ctx.conversation.enter('deleteuser');
 });
 
-bot.command('createTraining', async (ctx) => {
-  await ctx.conversation.enter('createTraining');
+bot.command('createtraining', async (ctx) => {
+  await ctx.conversation.enter('createtraining');
 });
 
-bot.command('getReport', async (ctx) => {
+myCommands.command('getreport', 'Получить отчет', async (ctx) => {
   const data = await commandByRole(ctx, async () => {
     return await getReport(ctx);
   });
@@ -79,10 +90,14 @@ bot.command('getReport', async (ctx) => {
   }
 });
 
+bot.use(myCommands);
+
+myCommands.setCommands(bot);
+
 bot.catch((err) => {
   const ctx = err.ctx;
 
-  console.error(`Error while handling update ${ctx.update.update_id}:`);
+  console.error(`Ошибка при обработке обновления ${ctx.update.update_id}:`);
 
   const e = err.error;
 
