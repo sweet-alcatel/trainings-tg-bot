@@ -10,7 +10,6 @@ import { MyContext } from './types/conversation';
 import { createTraining } from './conversations/createTraining';
 import { getReport } from './commands/getReport';
 import { commandByRole } from './helpers/commandByRole';
-import { CommandGroup } from '@grammyjs/commands';
 
 dotenv.config();
 
@@ -24,6 +23,22 @@ bot.use(session({ initial: () => ({}) }));
 
 bot.use(conversations());
 
+bot.api.setMyCommands([
+  { command: 'start', description: 'Запустить бота' },
+  { command: 'help', description: 'Помощь по командам' },
+  { command: 'getmyself', description: 'Получить информацию о себе' },
+  {
+    command: 'getusers',
+    description: 'Получить информацию о всех пользователях',
+  },
+  { command: 'createuser', description: 'Создать пользователя' },
+  { command: 'updateuser', description: 'Обновить информацию по пользователю' },
+  { command: 'deleteuser', description: 'Удалить пользователя' },
+  { command: 'createtraining', description: 'Создание записи о тренировке' },
+  { command: 'getreport', description: 'Получить отчет' },
+  { command: 'cancel', description: 'Отмена выполнения команды' },
+]);
+
 bot.command('cancel', async (ctx) => {
   await ctx.conversation.exit();
   await ctx.reply('Выход...');
@@ -34,18 +49,15 @@ bot.use(createConversation(updateUser, 'updateuser'));
 bot.use(createConversation(deleteUser, 'deleteuser'));
 bot.use(createConversation(createTraining, 'createtraining'));
 
-const myCommands = new CommandGroup();
-
-myCommands.command(
+bot.command(
   'start',
-  'Запуск бота',
   async (ctx) => await ctx.reply('Привет! Введите /help для просмотра команд'),
 );
 
-myCommands.command('help', 'Помощь по командам', async (ctx) => {
+bot.command('help', async (ctx) => {
   await ctx.reply(`
     Команды для администратора: 
-    \nПолучение пользователей - /getusers, 
+    \nПолучение пользователей - /getusers
     \nСоздание пользователя - /createuser
     \nРедактирование пользователя - /updateuser 
     \nУдаление пользователя - /deleteuser 
@@ -56,11 +68,11 @@ myCommands.command('help', 'Помощь по командам', async (ctx) => 
     \nЕсли вы застряли во время диалога, прожмите команду /cancel для отмены`);
 });
 
-myCommands.command('getmyself', 'Получить информацию о себе', async (ctx) => {
+bot.command('getmyself', async (ctx) => {
   await getMyself(ctx);
 });
 
-myCommands.command('getusers', 'Получить пользователей', getUsers);
+bot.command('getusers', getUsers);
 
 bot.command('createuser', async (ctx) => {
   await ctx.conversation.enter('createuser');
@@ -78,7 +90,7 @@ bot.command('createtraining', async (ctx) => {
   await ctx.conversation.enter('createtraining');
 });
 
-myCommands.command('getreport', 'Получить отчет', async (ctx) => {
+bot.command('getreport', async (ctx) => {
   const data = await commandByRole(ctx, async () => {
     return await getReport(ctx);
   });
@@ -89,10 +101,6 @@ myCommands.command('getreport', 'Получить отчет', async (ctx) => {
     );
   }
 });
-
-bot.use(myCommands);
-
-myCommands.setCommands(bot);
 
 bot.catch((err) => {
   const ctx = err.ctx;
