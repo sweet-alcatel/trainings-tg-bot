@@ -46,6 +46,10 @@ export class User extends Model<User> {
   @Column
   role: 'ADMIN' | 'USER';
 
-  @HasMany(() => Training)
+  @HasMany(() => Training, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
   trainings: Training[];
 }
