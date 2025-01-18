@@ -8,7 +8,7 @@ const deleteUserCommand = async (
   ctx: MyContext,
 ) => {
   await ctx.reply(
-    'Вы попали в диалог удаления пользователя. Введите его telegram ID',
+    'Вы попали в диалог удаления пользователя. Введите его telegram ID. Внимание! Команда удаляет все связанное с пользователем: самого пользователя, тренировки и прочее',
   );
 
   const { message } = await conversation.wait();

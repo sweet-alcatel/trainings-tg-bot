@@ -28,7 +28,6 @@ const updateUserCommand = async (
 
     await ctx.reply(`
         Пользователь был найден. Вот его данные
-        \ntelegram ID: ${user.telegramID}
         \nИмя: ${user.name} 
         \nРост: ${user.height}
         \nВес: ${user.weight}
@@ -44,13 +43,12 @@ const updateUserCommand = async (
 
     await ctx.reply(`
         Соответствие смотрите по данной таблице
-        \ntelegramID: telegram ID,
-        \nname: Имя,
-        \nusername: никнейм (например, OwlNearYou),
-        \nheight: Рост,
-        \nweight: Вес,
-        \ngoals: Цели,
-        \ninjuries: Травмы,
+        \nname: Имя
+        \nusername: никнейм (например, OwlNearYou)
+        \nheight: Рост
+        \nweight: Вес
+        \ngoals: Цели
+        \ninjuries: Травмы
         \ncomment: Комментарий
         `);
 

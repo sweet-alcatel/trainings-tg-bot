@@ -33,7 +33,11 @@ bot.api.setMyCommands([
   },
   { command: 'createuser', description: 'Создать пользователя' },
   { command: 'updateuser', description: 'Обновить информацию по пользователю' },
-  { command: 'deleteuser', description: 'Удалить пользователя' },
+  {
+    command: 'deleteuser',
+    description:
+      'Удалить пользователя. Внимание! Происходит удаление всех данных, связанных с пользователем',
+  },
   { command: 'createtraining', description: 'Создание записи о тренировке' },
   { command: 'getreport', description: 'Получить отчет' },
   { command: 'cancel', description: 'Отмена выполнения команды' },
