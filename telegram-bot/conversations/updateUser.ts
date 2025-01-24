@@ -1,4 +1,3 @@
-import { Role } from '../data/role';
 import { MyContext, MyConversation } from '../types/conversation';
 import { conversationByRole } from '../helpers/conversationByRole';
 const fetch = require('node-fetch');
@@ -68,7 +67,6 @@ const updateUserCommand = async (
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
-          Role: Role.ADMIN,
         },
       },
     );

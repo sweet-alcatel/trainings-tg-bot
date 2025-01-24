@@ -1,4 +1,3 @@
-import { Role } from '../data/role';
 import { MyContext, MyConversation } from '../types/conversation';
 import { conversationByRole } from '../helpers/conversationByRole';
 const fetch = require('node-fetch');
@@ -18,9 +17,6 @@ const deleteUserCommand = async (
       `${process.env.domain}/api/v1/user/${message?.text}`,
       {
         method: 'DELETE',
-        headers: {
-          Role: Role.ADMIN,
-        },
       },
     );
 

@@ -1,4 +1,3 @@
-import { Role } from '../data/role';
 import { commandByRole } from '../helpers/commandByRole';
 import { MyCommandContext } from '../types/conversation';
 
@@ -6,11 +5,7 @@ const fetch = require('node-fetch');
 
 const getUsersCommand = async (ctx: MyCommandContext) => {
   try {
-    const response = await fetch(`${process.env.domain}/api/v1/user/`, {
-      headers: {
-        Role: Role.ADMIN,
-      },
-    });
+    const response = await fetch(`${process.env.domain}/api/v1/user/`);
 
     if (!response.ok) {
       throw new Error('Ошибка выполнения запроса');
